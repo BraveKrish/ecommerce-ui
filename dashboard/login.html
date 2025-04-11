@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password</title>
+    <title>Admin Login</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
         }
-        .forgot-container {
+        .login-container {
             max-width: 400px;
             margin: 100px auto;
         }
@@ -34,10 +34,7 @@
             background-color: #303f9f;
             border-color: #303f9f;
         }
-        .btn-secondary {
-            width: 100%;
-        }
-        .key-icon {
+        .admin-icon {
             font-size: 50px;
             margin-bottom: 10px;
         }
@@ -49,33 +46,51 @@
 </head>
 <body>
     <div class="container">
-        <div class="forgot-container">
+        <div class="login-container">
             <div class="card">
                 <div class="card-header">
-                    <div class="key-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
-                            <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/>
-                            <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                    <div class="admin-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                         </svg>
                     </div>
-                    <h4>Forgot Password</h4>
+                    <h4>Administration Login</h4>
                 </div>
                 <div class="card-body p-4">
-                    <p class="text-muted mb-4">Enter your email address below and we'll send you instructions to reset your password.</p>
                     <form>
-                        <div class="mb-4">
-                            <label for="email" class="form-label">Email Address</label>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
                             <div class="input-group">
                                 <span class="input-group-text">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
-                                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
                                     </svg>
                                 </span>
-                                <input type="email" class="form-control" id="email" placeholder="Enter your email address" required>
+                                <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mb-3">Send Reset Link</button>
-                        <a href="#" class="btn btn-outline-secondary">Back to Login</a>
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+                                    </svg>
+                                </span>
+                                <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                            </div>
+                        </div>
+                        <div class="mb-4 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <div class="text-center mt-3">
+                            {{-- <a href="{{ url('/forget-password') }}" class="text-decoration-none">Forgot Password?</a> --}}
+
+                            <a href="{{ route('forget.password') }}" class="text-decoration-none">Forgot Password?</a>
+                        </div>
                     </form>
                 </div>
                 <div class="card-footer text-center py-3">

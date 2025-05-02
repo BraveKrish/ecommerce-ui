@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModernShop - Your Premium Shopping Destination</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #5d3fd3;
+            --secondary-color: #f8f9fa;
+            --accent-color: #ff6b6b;
+            --text-color: #333;
+            --light-text: #777;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1800/800') center/cover no-repeat;
+            color: white;
+            padding: 150px 0;
+            margin-bottom: 3rem;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: darken(var(--primary-color), 10%);
+            box-shadow: 0 4px 12px rgba(93, 63, 211, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .cat-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .cat-card img {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .cat-card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            padding: 20px;
+        }
+        
+        .cat-card-overlay h3 {
+            color: white;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            height: 4px;
+            width: 50px;
+            background-color: var(--primary-color);
+        }
+        
+        .product-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+            border: none;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .product-card .card-img-top {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .price {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: var(--light-text);
+            margin-right: 8px;
+        }
+        
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        
+        .trending-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        
+        .product-action {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover .product-action {
+            opacity: 1;
+        }
+        
+        .product-action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-left: 8px;
+            color: var(--text-color);
+            transition: all 0.2s ease;
+        }
+        
+        .product-action-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .offer-banner {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .offer-content {
+            padding: 3rem;
+        }
+        
+        .newsletter-section {
+            background-color: var(--secondary-color);
+            padding: 5rem 0;
+        }
+        
+        .newsletter-section .input-group {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-section .form-control {
+            height: 50px;
+            border-radius: 25px 0 0 25px;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .newsletter-section .btn {
+            border-radius: 0 25px 25px 0;
+            height: 50px;
+        }
+        
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 5rem 0 2rem;
+        }
+        
+        footer h5 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        footer ul li {
+            margin-bottom: 10px;
+        }
+        
+        footer ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        footer ul li a:hover {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            padding-top: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .offer-content {
+                padding: 2rem;
+            }
+            
+            .hero-section {
+                padding: 100px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">ModernShop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Collections</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="input-group me-3 d-none d-lg-flex" style="width: 300px;">
+                        <input type="text" class="form-control" placeholder="Search products..." aria-label="Search">
+                        <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
+                    </div>
+                    <div class="d-flex">
+                        <a href="#" class="btn btn-link text-dark me-2"><i class="bi bi-person fs-5"></i></a>
+                        <a href="#" class="btn btn-link text-dark me-2"><i class="bi bi-heart fs-5"></i></a>
+                        <a href="#" class="btn btn-link text-dark position-relative">
+                            <i class="bi bi-cart3 fs-5"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 hero-content">
+                    <h1 class="mb-4">Summer Collection 2025</h1>
+                    <p class="lead mb-4">Discover our new arrivals with up to 40% off. Limited time offer on selected items.</p>
+                    <a href="#" class="btn btn-primary btn-lg px-4 me-2">Shop Now</a>
+                    <a href="#" class="btn btn-outline-light btn-lg px-4">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Categories -->
+    <section class="container mb-5">
+        <h2 class="section-title">Shop by Category</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="cat-card">
+                    <img src="/api/placeholder/600/400" alt="Men's Fashion" class="img-fluid w-100">
+                    <div class="cat-card-overlay">
+                        <h3>Men's Fashion</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="cat-card">
+                    <img src="/api/placeholder/600/400" alt="Women's Fashion" class="img-fluid w-100">
+                    <div class="cat-card-overlay">
+                        <h3>Women's Fashion</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="cat-card">
+                    <img src="/api/placeholder/600/400" alt="Accessories" class="img-fluid w-100">
+                    <div class="cat-card-overlay">
+                        <h3>Accessories</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="cat-card">
+                    <img src="/api/placeholder/800/400" alt="Home & Living" class="img-fluid w-100">
+                    <div class="cat-card-overlay">
+                        <h3>Home & Living</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="cat-card">
+                    <img src="/api/placeholder/800/400" alt="Electronics" class="img-fluid w-100">
+                    <div class="cat-card-overlay">
+                        <h3>Electronics</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="container mb-5">
+        <h2 class="section-title">Featured Products</h2>
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="card product-card">
+                    <div class="position-relative">
+                        <img src="/api/placeholder/400/400" class="card-img-top" alt="Product 1">
+                        <span class="discount-badge">-20%</span>
+                        <div class="product-action d-flex">
+                            <a href="#" class="product-action-btn"><i class="bi bi-heart"></i></a>
+                            <a href="#" class="product-action-btn"><i class="bi bi-eye"></i></a>
+                            <a href="#" class="product-action-btn"><i class="bi bi-cart-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Premium Cotton T-shirt</h5>
+                        <p class="card-text"><small class="text-muted">Men's Fashion</small></p>
+                        <div class="d-flex align-items-center">
+                            <span class="original-price">$49.99</span>
+                            <span class="price">$39.99</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card product-card">
+                    <div class="position-relative">
+                        <img src="/api/placeholder/400/400" class="card-img-top" alt="Product 2">
+                        <span class="discount-badge">-15%</span>
+                        <div class="product-action d-flex">
+                            <a href="#" class="product-action-btn"><i class="bi bi-heart"></i></a>
+                            <a href="#" class="product-action-btn"><i class="bi bi-eye"></i></a>
+                            <a href="#" class="product-action-btn"><i class="bi bi-cart-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Leather Crossbody Bag</h5>
+                        <p class="card-text"><small class="text-muted">Women's Accessories</small></p>
+                        <div class="d-flex align-items-center">
+                            <span class="original-price">$89.99</span>
+                            <span class="price">$76.49</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card product-card">
+                    <div class="position-relative">
+                        <img src="/api/placeholder/400/400" class="card-img-top" alt="Product 3">
+                        <div class="product-action d-flex">
+                            <a href="#" class="product-action-btn"><i class="bi bi-heart"></i></a>
+                            <a href="#" class="product-action-btn"><i class="bi bi-eye"></i></a>
+                            <a href="#" class="product-action-btn"><i class="bi bi-cart-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Wireless Headphones</h5>
+                        <p class="card-text"><small class="text-muted">Electronics</small></p>
+                        <div class="d-flex align-items-center">
+                            <span class="price">$129.99</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card product-card">
+                    <div class="position-relative">
+                        <img src="/api/placeholder/400/400" class="card-img-top" alt="Product 4">
+                        <span class="discount-badge">-30%</span>
+                        <div class="product-action d-flex">
+                            <a href="#" class="product-action-btn"><i class="bi bi-heart"></i></a>
+                            <a href="#" class="product-action-btn"><i class="bi bi-eye"></i></a>
+                            <a href="#" class="product-action-btn"><i class="bi bi-cart-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Smart Watch</h5>
+                        <p class="card-text"><small class="text-muted">Electronics</small></p>
+                        <div class="d-flex align-items-center">
+                            <span class="original-price">$199.99</span>
+                            <span class="price">$139.99</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offer Banner -->
+    <section class="container mb-5">
+        <div class="offer-banner">
+            <div class="row g-0 align-items-center">
+                <div class="col-lg-6">
+                    <div class="offer-content">
+                        <h2 class="mb-4">Special Offer</h2>
+                        <h3 class="mb-4">Get 25% Off On Your First Purchase!</h3>
+                        <p class="mb-4">Use code <strong>WELCOME25</strong> at checkout</p>
+                        <a href="#" class="btn btn-light btn-lg">Shop Now</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="/api/placeholder/800/600" alt="Special Offer" class="img-fluid">
+                </div>
+            </div>
+        </div>  
+    </section>
+
+    <!-- Trending Products -->
+    <section class="container mb-5">
+        <h2 class="section-title">Trending Now</h2>
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="card product-card">
+                    <div class="position-relative">
+                        <img src="/api/placeholder/400/400" class="card-img-top" alt="Trending Product 1">
+                        <span class="trending-badge"><i class="bi bi-fire"></i> Hot</span>
+                        <div class="product-action d-flex">
+                            <a href="#" class="product-action-btn"><i class="bi bi-heart"></i></a>
+                            <a href="#" class="product-action-btn"><i class="bi bi-eye"></i></a>
+                            <a href="#" class="product-action-btn"><i class="bi bi-cart-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Premium Sneakers</h5>
+                        <p class="card-text"><small class="text-muted">Men's Footwear</small></p>
+                        <div class="d-flex align-items-center">
+                            <span class="price">$89.99</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card product-card">
+                    <div class="position-relative">
+                        <img src="/api/placeholder/400/400" class="card-img-top" alt="Trending Product 2">
+                        <span class="trending-badge"><i class="bi bi-fire"></i> Hot</span>
+                        <div class="product-action d-flex">
+                            <a href="#" class="product-action-btn"><i class="bi bi-heart"></i></a>
+                            <a href="#" class="product-action-btn"><i class="bi bi-eye"></i></a>
+                            <a href="#" class="product-action-btn"><i class="bi bi-cart-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Designer Sunglasses</h5>
+                        <p class="card-text"><small class="text-muted">Accessories</small></p>
+                        <div class="d-flex align-items-center">
+                            <span class="price">$125.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card product-card">
+                    <div class="position-relative">
+                        <img src="/api/placeholder/400/400" class="card-img-top" alt="Trending Product 3">
+                        <span class="trending-badge"><i class="bi bi-fire"></i> Hot</span>
+                        <div class="product-action d-flex">
+                            <a href="#" class="product-action-btn"><i class="bi bi-heart"></i></a>
+                            <a href="#" class="product-action-btn"><i class="bi bi-eye"></i></a>
+                            <a href="#" class="product-action-btn"><i class="bi bi-cart-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Organic Skincare Set</h5>
+                        <p class="card-text"><small class="text-muted">Beauty</small></p>
+                        <div class="d-flex align-items-center">
+                            <span class="price">$79.99</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card product-card">
+                    <div class="position-relative">
+                        <img src="/api/placeholder/400/400" class="card-img-top" alt="Trending Product 4">
+                        <span class="trending-badge"><i class="bi bi-fire"></i> Hot</span>
+                        <div class="product-action d-flex">
+                            <a href="#" class="product-action-btn"><i class="bi bi-heart"></i></a>
+                            <a href="#" class="product-action-btn"><i class="bi bi-eye"></i></a>
+                            <a href="#" class="product-action-btn"><i class="bi bi-cart-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Portable Bluetooth Speaker</h5>
+                        <p class="card-text"><small class="text-muted">Electronics</small></p>
+                        <div class="d-flex align-items-center">
+                            <span class="price">$59.99</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container text-center">
+            <h2 class="mb-4">Subscribe to Our Newsletter</h2>
+            <p class="mb-5 text-muted mx-auto" style="max-width: 600px;">Stay updated with our latest products, exclusive offers, and fashion tips. Subscribe now and get 10% off on your first purchase.</p>
+            <div class="input-group mb-3 mx-auto">
+                <input type="email" class="form-control" placeholder="Enter your email" aria-label="Email address">
+                <button class="btn btn-primary" type="button">Subscribe</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5>ModernShop</h5>
+                    <p class="text-muted mb-4">Your premium shopping destination for trendy fashion, electronics, and home essentials.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5>Shop</h5>
+                    <ul>
+                        <li><a href="#">Men's Fashion</a></li>
+                        <li><a href="#">Women's Fashion</a></li>
+                        <li><a href="#">Electronics</a></li>
+                        <li><a href="#">Accessories</a></li>
+                        <li><a href="#">Home & Living</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5>Customer Service</h5>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5>Account</h5>
+                    <ul>
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="#">Wishlist</a></li>
+                        <li><a href="#">Order History</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <p class="mb-0">© 2025 ModernShop. All rights reserved.</p>
+                <div class="mt-3">
+                    <img src="/api/placeholder/300/30" alt="Payment Methods" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
